@@ -1,0 +1,49 @@
+{
+    "name": "alhaji-aki/laravel-otp-token",
+    "description": "Create otp tokens for users on your application",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Abdul Kudus",
+            "email": "abdulkudus2922@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AlhajiAki\\OtpToken\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AlhajiAki\\OtpToken\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AlhajiAki\\OtpToken\\OtpTokenServiceProvider"
+            ],
+            "aliases": {
+                "OtpToken": "AlhajiAki\\OtpToken\\OtpToken"
+            }
+        }
+    },
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/contracts": "^7.0|^8.0",
+        "illuminate/database": "^7.0|^8.0",
+        "illuminate/support": "^7.0|^8.0"
+    },
+    "require-dev": {
+        "ext-pdo_sqlite": "*",
+        "illuminate/testing": "^7.0|^8.0",
+        "mockery/mockery": "^1.3",
+        "orchestra/testbench": "^5.0|^6.0",
+        "phpunit/phpunit": "^9.1"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
