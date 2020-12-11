@@ -2,6 +2,7 @@
     "name": "alhaji-aki/laravel-otp-token",
     "description": "Create otp tokens for users on your application",
     "type": "library",
+    "license": "MIT",
     "keywords": [
         "framework",
         "laravel",
