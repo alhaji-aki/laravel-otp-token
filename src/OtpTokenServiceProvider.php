@@ -8,19 +8,19 @@ class OtpTokenServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/otp-tokens.php' => config_path('otp-tokens.php'),
-            ], 'config');
+        $this->publishes([
+            __DIR__ . '/../config/otp-tokens.php' => config_path('otp-tokens.php'),
+        ], 'config');
 
-            $this->publishes([
-                __DIR__ . '/../database/migrations' => database_path('migrations'),
-            ], 'migrations');
+        $this->mergeConfigFrom(__DIR__ . '/../config/otp-tokens.php', 'otp-tokens');
 
-            $this->publishes([
-                __DIR__ . '/../resources/lang' => resource_path('lang/en'),
-            ]);
-        }
+        $this->publishes([
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
+        ], 'migrations');
+
+        $this->publishes([
+            __DIR__ . '/../resources/lang' => resource_path('lang/en'),
+        ]);
     }
 
     /**

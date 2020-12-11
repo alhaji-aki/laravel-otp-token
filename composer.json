@@ -2,6 +2,11 @@
     "name": "alhaji-aki/laravel-otp-token",
     "description": "Create otp tokens for users on your application",
     "type": "library",
+    "keywords": [
+        "framework",
+        "laravel",
+        "otp tokens"
+    ],
     "authors": [
         {
             "name": "Abdul Kudus",
