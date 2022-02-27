@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static mixed performAction(array $credentials, \Closure $callback)
- * @method static string sendOtpToken(array $credentials, Closure $callback)
+ * @method static string sendOtpToken(array $credentials, \Closure $callback)
  * @method static \AlhajiAki\OtpToken\Contracts\CanSendOtpToken getUser(array $credentials)
  * @method static string createToken(\AlhajiAki\OtpToken\Contracts\CanSendOtpToken $user, $action, $field)
  * @method static void deleteToken(\AlhajiAki\OtpToken\Contracts\CanSendOtpToken $user, $action, $field)
