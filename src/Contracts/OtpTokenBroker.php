@@ -11,35 +11,35 @@ interface OtpTokenBroker
      *
      * @var string
      */
-    const OTP_TOKEN_SENT = 'otp_tokens.sent';
+    public const OTP_TOKEN_SENT = 'otp_tokens.sent';
 
     /**
      * Constant representing a successfully performing an action.
      *
      * @var string
      */
-    const ACTION_COMPLETED = 'otp_tokens.completed';
+    public const ACTION_COMPLETED = 'otp_tokens.completed';
 
     /**
      * Constant representing the user not found response.
      *
      * @var string
      */
-    const INVALID_USER = 'otp_tokens.user';
+    public const INVALID_USER = 'otp_tokens.user';
 
     /**
      * Constant representing an invalid token.
      *
      * @var string
      */
-    const INVALID_TOKEN = 'otp_tokens.token';
+    public const INVALID_TOKEN = 'otp_tokens.token';
 
     /**
      * Constant representing a throttled reset attempt.
      *
      * @var string
      */
-    const OTP_TOKEN_THROTTLED = 'otp_tokens.throttled';
+    public const OTP_TOKEN_THROTTLED = 'otp_tokens.throttled';
 
     /**
      * Send an otp token to a user.

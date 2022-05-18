@@ -2,9 +2,9 @@
 
 namespace AlhajiAki\OtpToken;
 
-use Closure;
 use AlhajiAki\OtpToken\Contracts\CanSendOtpToken as CanSendOtpTokenContract;
 use AlhajiAki\OtpToken\Contracts\OtpTokenBroker as OtpTokenBrokerContract;
+use Closure;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Support\Arr;
 use UnexpectedValueException;
@@ -81,7 +81,7 @@ class OtpTokenBroker implements OtpTokenBrokerContract
         // If the responses from the validate method is not a user instance, we will
         // assume that it is a redirect and simply return it from this method and
         // the user is properly redirected having an error message on the post.
-        if (!$user instanceof CanSendOtpTokenContract) {
+        if (! $user instanceof CanSendOtpTokenContract) {
             return $user;
         }
 
@@ -107,7 +107,7 @@ class OtpTokenBroker implements OtpTokenBrokerContract
             return static::INVALID_USER;
         }
 
-        if (!$this->tokens->exists($user, $credentials['token'], $credentials['action'], $credentials['field'])) {
+        if (! $this->tokens->exists($user, $credentials['token'], $credentials['action'], $credentials['field'])) {
             return static::INVALID_TOKEN;
         }
 
@@ -128,7 +128,7 @@ class OtpTokenBroker implements OtpTokenBrokerContract
 
         $user = $this->users->retrieveByCredentials($credentials);
 
-        if ($user && !$user instanceof CanSendOtpTokenContract) {
+        if ($user && ! $user instanceof CanSendOtpTokenContract) {
             throw new UnexpectedValueException('User must implement CanSendOtpToken interface.');
         }
 
