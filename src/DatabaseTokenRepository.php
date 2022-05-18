@@ -131,7 +131,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
             'column' => $column,
             'token' => $this->hasher->make($token),
             'action' => $action,
-            'created_at' => new Carbon
+            'created_at' => new Carbon(),
         ];
     }
 
@@ -149,7 +149,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
         $record = (array) $this->getRecord($user, $action, $field);
 
         return $record &&
-            !$this->tokenExpired($record['created_at']) &&
+            ! $this->tokenExpired($record['created_at']) &&
             $this->hasher->check($token, $record['token']);
     }
 

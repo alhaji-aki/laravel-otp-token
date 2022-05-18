@@ -4,7 +4,7 @@ namespace AlhajiAki\OtpToken\Tests;
 
 use AlhajiAki\OtpToken\OtpTokenServiceProvider;
 use Dotenv\Dotenv;
-use \Orchestra\Testbench\TestCase as BaseTestCase;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
@@ -19,7 +19,7 @@ class TestCase extends BaseTestCase
 
     protected function loadEnvironmentVariables()
     {
-        if (!file_exists(__DIR__ . '/../.env')) {
+        if (! file_exists(__DIR__ . '/../.env')) {
             return;
         }
 

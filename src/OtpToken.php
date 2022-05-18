@@ -23,35 +23,35 @@ class OtpToken extends Facade
      *
      * @var string
      */
-    const OTP_TOKEN_SENT = OtpTokenBroker::OTP_TOKEN_SENT;
+    public const OTP_TOKEN_SENT = OtpTokenBroker::OTP_TOKEN_SENT;
 
     /**
      * Constant representing a successfully performing an action.
      *
      * @var string
      */
-    const ACTION_COMPLETED = OtpTokenBroker::ACTION_COMPLETED;
+    public const ACTION_COMPLETED = OtpTokenBroker::ACTION_COMPLETED;
 
     /**
      * Constant representing the user not found response.
      *
      * @var string
      */
-    const INVALID_USER = OtpTokenBroker::INVALID_USER;
+    public const INVALID_USER = OtpTokenBroker::INVALID_USER;
 
     /**
      * Constant representing an invalid token.
      *
      * @var string
      */
-    const INVALID_TOKEN = OtpTokenBroker::INVALID_TOKEN;
+    public const INVALID_TOKEN = OtpTokenBroker::INVALID_TOKEN;
 
     /**
      * Constant representing a throttled reset attempt.
      *
      * @var string
      */
-    const OTP_TOKEN_THROTTLED = OtpTokenBroker::OTP_TOKEN_THROTTLED;
+    public const OTP_TOKEN_THROTTLED = OtpTokenBroker::OTP_TOKEN_THROTTLED;
 
     /**
      * Get the registered name of the component.
