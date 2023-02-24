@@ -19,7 +19,7 @@ class OtpTokenServiceProvider extends ServiceProvider
         ], 'migrations');
 
         $this->publishes([
-            __DIR__ . '/../resources/lang' => resource_path('lang/en'),
+            __DIR__ . '/../resources/lang' => $this->app->langPath('lang/en'),
         ]);
     }
 

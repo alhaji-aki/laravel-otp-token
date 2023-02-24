@@ -123,14 +123,14 @@ The `getColumnForOtpToken($field)` is used the get the value of the field that w
 
 The OtpToken facade exposes a `sendOtpToken()` method which expects two parameters. They are:
 
--   an array containing the field to use, the action to associate with the token and the value for the field specified.
--   the second parameter is a closure that would be executed after the otp token has been generated. The closure will get an instance of the `CanSendOtpToken` contract and the token that was generated.
+- an array containing the field to use, the action to associate with the token and the value for the field specified.
+- the second parameter is a closure that would be executed after the otp token has been generated. The closure will get an instance of the `CanSendOtpToken` contract and the token that was generated.
 
 The method returns a response which can be one of the following constants :
 
--   OTP_TOKEN_SENT: When the closure passed executes successfully.
--   INVALID_USER: When the user cannot be found.
--   OTP_TOKEN_THROTTLED: the user has to wait for some minutes before they can create a new token.
+- OTP_TOKEN_SENT: When the closure passed executes successfully.
+- INVALID_USER: When the user cannot be found.
+- OTP_TOKEN_THROTTLED: the user has to wait for some minutes before they can create a new token.
 
 A common usage example of the `sendOtpToken()` is when you want to send an otp verification token to a user's phone number. Here is an example implementation:
 
@@ -165,14 +165,14 @@ class MobileNumberVerificationController extends Controller
 
 The facade also has a `performAction()` method to perform an action when the provided otp token is valid. This method also expects two parameters. They are:
 
--   an array containing the field to use, this should be the same as the field passed when the token was generated, the action that was associated to the token when it was generated and the value for the field specified.
--   the second parameter is a closure that would be executed after the otp token has been verified. The closure will get an instance of the `CanSendOtpToken` contract.
+- an array containing the field to use, this should be the same as the field passed when the token was generated, the action that was associated to the token when it was generated and the value for the field specified.
+- the second parameter is a closure that would be executed after the otp token has been verified. The closure will get an instance of the `CanSendOtpToken` contract.
 
 The method returns a response which can be one of the following constants :
 
--   ACTION_COMPLETED: When the closure passed executes successfully.
--   INVALID_USER: When the user cannot be found.
--   INVALID_TOKEN: When the token submitted is an invalid one.
+- ACTION_COMPLETED: When the closure passed executes successfully.
+- INVALID_USER: When the user cannot be found.
+- INVALID_TOKEN: When the token submitted is an invalid one.
 
 A common usage example of the `performAction()` is when you want to verify that the otp token is a corrent one. Here is an example implementation:
 
