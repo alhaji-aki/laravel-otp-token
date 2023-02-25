@@ -11,7 +11,6 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Mockery as m;
-use stdClass;
 
 class DatabaseTokenRepositoryTest extends TestCase
 {

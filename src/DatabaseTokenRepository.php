@@ -75,7 +75,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
         $record = (array) $this->getRecord($user, $action, $field);
 
         return $record &&
-            !$this->tokenExpired($record['created_at']) &&
+            ! $this->tokenExpired($record['created_at']) &&
             $this->hasher->check($token, $record['token']);
     }
 

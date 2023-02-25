@@ -11,7 +11,7 @@ class OtpTokenBrokerManager
     /**
      * The array of created "drivers".
      *
-     * @var array<string, OtpTokenBroker>  $brokers
+     * @var array<string, OtpTokenBroker> 
      */
     protected array $brokers = [];
 
