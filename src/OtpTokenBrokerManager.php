@@ -11,7 +11,7 @@ class OtpTokenBrokerManager
     /**
      * The array of created "drivers".
      *
-     * @var array<string, OtpTokenBroker> 
+     * @var array<string, OtpTokenBroker>
      */
     protected array $brokers = [];
 
@@ -48,7 +48,7 @@ class OtpTokenBrokerManager
         // otp tokens, as well as providing a convenient interface for otp token verification.
         return new OtpTokenBroker(
             $this->createTokenRepository($config),
-            $this->app->get('auth')->createUserProvider($config['provider'])
+            $this->app['auth']->createUserProvider($config['provider'])
         );
     }
 
@@ -59,7 +59,7 @@ class OtpTokenBrokerManager
      */
     protected function createTokenRepository(array $config): TokenRepositoryInterface
     {
-        $key = $this->app->get('config')['app.key'];
+        $key = $this->app['config']['app.key'];
 
         if (Str::startsWith($key, 'base64:')) {
             $key = base64_decode(substr($key, 7));
@@ -68,8 +68,8 @@ class OtpTokenBrokerManager
         $connection = $config['connection'] ?? null;
 
         return new DatabaseTokenRepository(
-            $this->app->get('db')->connection($connection),
-            $this->app->get('hash'),
+            $this->app['db']->connection($connection),
+            $this->app['hash'],
             $config['table'],
             $key,
             $config['expire'],
@@ -84,7 +84,7 @@ class OtpTokenBrokerManager
      */
     protected function getConfig(string $name): ?array
     {
-        return $this->app->get('config')["otp-tokens.otp_tokens.{$name}"];
+        return $this->app['config']["otp-tokens.otp_tokens.{$name}"];
     }
 
     /**
@@ -92,7 +92,7 @@ class OtpTokenBrokerManager
      */
     public function getDefaultDriver(): string
     {
-        return $this->app->get('config')['otp-tokens.defaults.otp_tokens'];
+        return $this->app['config']['otp-tokens.defaults.otp_tokens'];
     }
 
     /**
@@ -100,7 +100,7 @@ class OtpTokenBrokerManager
      */
     public function setDefaultDriver(string $name): void
     {
-        $this->app->get('config')['otp-tokens.defaults.otp_tokens'] = $name;
+        $this->app['config']['otp-tokens.defaults.otp_tokens'] = $name;
     }
 
     /**
