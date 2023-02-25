@@ -2,43 +2,31 @@
 
 namespace AlhajiAki\OtpToken;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
 class OtpTokenBrokerManager
 {
     /**
-     * The application instance.
-     *
-     * @var \Illuminate\Contracts\Foundation\Application
-     */
-    protected $app;
-
-    /**
      * The array of created "drivers".
      *
-     * @var array
+     * @var array<string, OtpTokenBroker>  $brokers
      */
-    protected $brokers = [];
+    protected array $brokers = [];
 
     /**
      * Create a new OtpTokenBroker manager instance.
-     *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @return void
      */
-    public function __construct($app)
-    {
-        $this->app = $app;
+    public function __construct(
+        protected Application $app
+    ) {
     }
 
     /**
      * Attempt to get the broker from the local cache.
-     *
-     * @param  string|null  $name
-     * @return \AlhajiAki\OtpToken\Contracts\OtpTokenBroker
      */
-    public function broker($name = null)
+    public function broker(string $name = null): OtpTokenBroker
     {
         $name = $name ?: $this->getDefaultDriver();
 
@@ -47,13 +35,8 @@ class OtpTokenBrokerManager
 
     /**
      * Resolve the given broker.
-     *
-     * @param  string  $name
-     * @return \AlhajiAki\OtpToken\Contracts\OtpTokenBroker
-     *
-     * @throws \InvalidArgumentException
      */
-    protected function resolve($name)
+    protected function resolve(string $name): OtpTokenBroker
     {
         $config = $this->getConfig($name);
 
@@ -65,19 +48,18 @@ class OtpTokenBrokerManager
         // otp tokens, as well as providing a convenient interface for otp token verification.
         return new OtpTokenBroker(
             $this->createTokenRepository($config),
-            $this->app['auth']->createUserProvider($config['provider'] ?? null)
+            $this->app->get('auth')->createUserProvider($config['provider'])
         );
     }
 
     /**
      * Create a token repository instance based on the given configuration.
      *
-     * @param  array  $config
-     * @return \AlhajiAki\OtpToken\TokenRepositoryInterface
+     * @param  array{"table": string, "expire": int, "throttle"?: int, "connection"?: string}  $config
      */
-    protected function createTokenRepository(array $config)
+    protected function createTokenRepository(array $config): TokenRepositoryInterface
     {
-        $key = $this->app['config']['app.key'];
+        $key = $this->app->get('config')['app.key'];
 
         if (Str::startsWith($key, 'base64:')) {
             $key = base64_decode(substr($key, 7));
@@ -86,8 +68,8 @@ class OtpTokenBrokerManager
         $connection = $config['connection'] ?? null;
 
         return new DatabaseTokenRepository(
-            $this->app['db']->connection($connection),
-            $this->app['hash'],
+            $this->app->get('db')->connection($connection),
+            $this->app->get('hash'),
             $config['table'],
             $key,
             $config['expire'],
@@ -98,43 +80,35 @@ class OtpTokenBrokerManager
     /**
      * Get the otp token broker configuration.
      *
-     * @param  string  $name
-     * @return array
+     * @return array{"provider": string, "table": string, "expire": int, "throttle"?: int, "connection"?: string}
      */
-    protected function getConfig($name)
+    protected function getConfig(string $name): ?array
     {
-        return $this->app['config']["otp-tokens.otp_tokens.{$name}"];
+        return $this->app->get('config')["otp-tokens.otp_tokens.{$name}"];
     }
 
     /**
      * Get the default otp token broker name.
-     *
-     * @return string
      */
-    public function getDefaultDriver()
+    public function getDefaultDriver(): string
     {
-        return $this->app['config']['otp-tokens.defaults.otp_tokens'];
+        return $this->app->get('config')['otp-tokens.defaults.otp_tokens'];
     }
 
     /**
      * Set the default otp token broker name.
-     *
-     * @param  string  $name
-     * @return void
      */
-    public function setDefaultDriver($name)
+    public function setDefaultDriver(string $name): void
     {
-        $this->app['config']['otp-tokens.defaults.otp_tokens'] = $name;
+        $this->app->get('config')['otp-tokens.defaults.otp_tokens'] = $name;
     }
 
     /**
      * Dynamically call the default driver instance.
      *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
+     * @param  array<int, string>  $parameters
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters): mixed
     {
         return $this->broker()->{$method}(...$parameters);
     }

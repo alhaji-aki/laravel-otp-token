@@ -5,88 +5,28 @@ namespace AlhajiAki\OtpToken;
 use AlhajiAki\OtpToken\Contracts\CanSendOtpToken as CanSendOtpTokenContract;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Database\ConnectionInterface;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 
 class DatabaseTokenRepository implements TokenRepositoryInterface
 {
     /**
-     * The database connection instance.
-     *
-     * @var \Illuminate\Database\ConnectionInterface
-     */
-    protected $connection;
-
-    /**
-     * The Hasher implementation.
-     *
-     * @var \Illuminate\Contracts\Hashing\Hasher
-     */
-    protected $hasher;
-
-    /**
-     * The token database table.
-     *
-     * @var string
-     */
-    protected $table;
-
-    /**
-     * The hashing key.
-     *
-     * @var string
-     */
-    protected $hashKey;
-
-    /**
-     * The number of seconds a token should last.
-     *
-     * @var int
-     */
-    protected $expires;
-
-    /**
-     * Minimum number of seconds before re-redefining the token.
-     *
-     * @var int
-     */
-    protected $throttle;
-
-    /**
      * Create a new token repository instance.
-     *
-     * @param  \Illuminate\Database\ConnectionInterface  $connection
-     * @param  \Illuminate\Contracts\Hashing\Hasher  $hasher
-     * @param  string  $table
-     * @param  string  $hashKey
-     * @param  int  $expires
-     * @param  int  $throttle
-     * @return void
      */
     public function __construct(
-        ConnectionInterface $connection,
-        HasherContract $hasher,
-        $table,
-        $hashKey,
-        $expires = 60,
-        $throttle = 60
+        protected ConnectionInterface $connection,
+        protected HasherContract $hasher,
+        protected string $table,
+        protected string $hashKey,
+        protected int $expires = 60,
+        protected int $throttle = 60
     ) {
-        $this->table = $table;
-        $this->hasher = $hasher;
-        $this->hashKey = $hashKey;
-        $this->expires = $expires * 60;
-        $this->connection = $connection;
-        $this->throttle = $throttle;
     }
 
     /**
      * Create a new token record.
-     *
-     * @param  \AlhajiAki\OtpToken\Contracts\CanSendOtpToken  $user
-     * @param string $action
-     * @param string $field
-     * @return string
      */
-    public function create(CanSendOtpTokenContract $user, $action, $field)
+    public function create(CanSendOtpTokenContract $user, string $action, string $field): string
     {
         $column = $user->getColumnForOtpToken($field);
 
@@ -103,13 +43,8 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
 
     /**
      * Delete all existing reset tokens from the database.
-     *
-     * @param  \AlhajiAki\OtpToken\Contracts\CanSendOtpToken  $user
-     * @param string $action
-     * @param string $field
-     * @return int
      */
-    protected function deleteExisting(CanSendOtpTokenContract $user, $action, $field)
+    protected function deleteExisting(CanSendOtpTokenContract $user, string $action, string $field): int
     {
         return $this->getTable()
             ->where('column', $user->getColumnForOtpToken($field))
@@ -120,12 +55,9 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     /**
      * Build the record payload for the table.
      *
-     * @param  string  $column
-     * @param  string  $token
-     * @param  string  $action
-     * @return array
+     * @return array<string, string>
      */
-    protected function getPayload($column, $token, $action)
+    protected function getPayload(string $column, string $token, string $action): array
     {
         return [
             'column' => $column,
@@ -137,42 +69,28 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
 
     /**
      * Determine if a token record exists and is valid.
-     *
-     * @param  \AlhajiAki\OtpToken\Contracts\CanSendOtpToken  $user
-     * @param  string  $token
-     * @param string $action
-     * @param string $field
-     * @return bool
      */
-    public function exists(CanSendOtpTokenContract $user, $token, $action, $field)
+    public function exists(CanSendOtpTokenContract $user, string $token, string $action, string $field): bool
     {
         $record = (array) $this->getRecord($user, $action, $field);
 
         return $record &&
-            ! $this->tokenExpired($record['created_at']) &&
+            !$this->tokenExpired($record['created_at']) &&
             $this->hasher->check($token, $record['token']);
     }
 
     /**
      * Determine if the token has expired.
-     *
-     * @param  string  $createdAt
-     * @return bool
      */
-    protected function tokenExpired($createdAt)
+    protected function tokenExpired(string $createdAt): bool
     {
-        return Carbon::parse($createdAt)->addSeconds($this->expires)->isPast();
+        return Carbon::parse($createdAt)->addMinutes($this->expires)->isPast();
     }
 
     /**
      * Determine if the given user recently created an otp token.
-     *
-     * @param  \AlhajiAki\OtpToken\Contracts\CanSendOtpToken  $user
-     * @param string $action
-     * @param string $field
-     * @return bool
      */
-    public function recentlyCreatedToken(CanSendOtpTokenContract $user, $action, $field)
+    public function recentlyCreatedToken(CanSendOtpTokenContract $user, string $action, string $field): bool
     {
         $record = (array) $this->getRecord($user, $action, $field);
 
@@ -181,11 +99,8 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
 
     /**
      * Determine if the token was recently created.
-     *
-     * @param  string  $createdAt
-     * @return bool
      */
-    protected function tokenRecentlyCreated($createdAt)
+    protected function tokenRecentlyCreated(string $createdAt): bool
     {
         if ($this->throttle <= 0) {
             return false;
@@ -198,23 +113,16 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
 
     /**
      * Delete a token record by user.
-     *
-     * @param  \AlhajiAki\OtpToken\Contracts\CanSendOtpToken  $user
-     * @param string $action
-     * @param string $field
-     * @return void
      */
-    public function delete(CanSendOtpTokenContract $user, $action, $field)
+    public function delete(CanSendOtpTokenContract $user, string $action, string $field): void
     {
         $this->deleteExisting($user, $action, $field);
     }
 
     /**
      * Delete expired tokens.
-     *
-     * @return void
      */
-    public function deleteExpired()
+    public function deleteExpired(): void
     {
         $expiredAt = Carbon::now()->subSeconds($this->expires);
 
@@ -223,35 +131,32 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
 
     /**
      * Create a new token for the user.
-     *
-     * @return string
      */
-    public function createNewToken()
+    public function createNewToken(): string
     {
-        return rand(100000, 999999);
+        return (string) rand(100000, 999999);
     }
 
     /**
      * Get the database connection instance.
-     *
-     * @return \Illuminate\Database\ConnectionInterface
      */
-    public function getConnection()
+    public function getConnection(): ConnectionInterface
     {
         return $this->connection;
     }
 
     /**
      * Begin a new database query against the table.
-     *
-     * @return \Illuminate\Database\Query\Builder
      */
-    protected function getTable()
+    protected function getTable(): Builder
     {
         return $this->connection->table($this->table);
     }
 
-    protected function getRecord($user, $action, $field)
+    /**
+     * @return \Illuminate\Database\Eloquent\Model|object|static|null
+     */
+    protected function getRecord(CanSendOtpTokenContract $user, string $action, string $field)
     {
         return $this->getTable()->where(
             'column',
@@ -261,10 +166,8 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
 
     /**
      * Get the hasher instance.
-     *
-     * @return \Illuminate\Contracts\Hashing\Hasher
      */
-    public function getHasher()
+    public function getHasher(): HasherContract
     {
         return $this->hasher;
     }

@@ -1,0 +1,13 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    level: 8
+
+    paths:
+        - src
+        - config
+
+    tmpDir: build/phpstan
+
+    checkMissingIterableValueType: true

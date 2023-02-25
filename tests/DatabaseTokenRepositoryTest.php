@@ -7,6 +7,7 @@ use AlhajiAki\OtpToken\DatabaseTokenRepository;
 use AlhajiAki\OtpToken\Tests\TestCase;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\Connection;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Mockery as m;
@@ -45,11 +46,11 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->times(2)
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
-        $query->shouldReceive('delete')->once();
+        $query->shouldReceive('delete')->once()->andReturn(1);
         $query->shouldReceive('insert')->once();
 
         $user = m::mock(CanSendOtpToken::class);
@@ -68,7 +69,7 @@ class DatabaseTokenRepositoryTest extends TestCase
         $repo->getConnection()
             ->shouldReceive('table')
             ->once()->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
@@ -88,7 +89,7 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
@@ -116,7 +117,7 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
@@ -144,7 +145,7 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
@@ -167,7 +168,7 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'wrong-action')->andReturn($query);
@@ -189,7 +190,7 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
@@ -209,7 +210,7 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
@@ -229,7 +230,7 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
@@ -253,7 +254,7 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
@@ -275,11 +276,11 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')->once()->with('column', 'mobile')->andReturn($query);
         $query->shouldReceive('where')->once()->with('action', 'valid-action')->andReturn($query);
-        $query->shouldReceive('delete')->once();
+        $query->shouldReceive('delete')->once()->andReturn(1);
 
         $user = m::mock(CanSendOtpToken::class);
         $user->shouldReceive('getColumnForOtpToken')->with('field')->andReturn('mobile');
@@ -295,13 +296,13 @@ class DatabaseTokenRepositoryTest extends TestCase
             ->shouldReceive('table')
             ->once()
             ->with('table')
-            ->andReturn($query = m::mock(stdClass::class));
+            ->andReturn($query = m::mock(Builder::class));
 
         $query->shouldReceive('where')
             ->once()
             ->with('created_at', '<', m::any())->andReturn($query);
 
-        $query->shouldReceive('delete')->once();
+        $query->shouldReceive('delete')->once()->andReturn(1);
 
         $this->assertNull($repo->deleteExpired());
     }

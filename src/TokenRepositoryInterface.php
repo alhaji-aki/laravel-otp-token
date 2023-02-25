@@ -8,49 +8,26 @@ interface TokenRepositoryInterface
 {
     /**
      * Create a new token.
-     *
-     * @param  \AlhajiAki\OtpToken\Contracts\CanSendOtpToken  $user
-     * @param string $action
-     * @param string $field
-     * @return string
      */
-    public function create(CanSendOtpTokenContract $user, $action, $field);
+    public function create(CanSendOtpTokenContract $user, string $action, string $field): string;
 
     /**
      * Determine if a token record exists and is valid.
-     *
-     * @param  \AlhajiAki\OtpToken\Contracts\CanSendOtpToken  $user
-     * @param  string  $token
-     * @param string $action
-     * @param string $field
-     * @return bool
      */
-    public function exists(CanSendOtpTokenContract $user, $token, $action, $field);
+    public function exists(CanSendOtpTokenContract $user, string $token, string $action, string $field): bool;
 
     /**
      * Determine if the given user recently created an otp token.
-     *
-     * @param  \AlhajiAki\OtpToken\Contracts\CanSendOtpToken  $user
-     * @param string $action
-     * @param string $field
-     * @return bool
      */
-    public function recentlyCreatedToken(CanSendOtpTokenContract $user, $action, $field);
+    public function recentlyCreatedToken(CanSendOtpTokenContract $user, string $action, string $field): bool;
 
     /**
      * Delete a token record.
-     *
-     * @param  \AlhajiAki\OtpToken\Contracts\CanSendOtpToken  $user
-     * @param string $action
-     * @param string $field
-     * @return void
      */
-    public function delete(CanSendOtpTokenContract $user, $action, $field);
+    public function delete(CanSendOtpTokenContract $user, string $action, string $field): void;
 
     /**
      * Delete expired tokens.
-     *
-     * @return void
      */
-    public function deleteExpired();
+    public function deleteExpired(): void;
 }

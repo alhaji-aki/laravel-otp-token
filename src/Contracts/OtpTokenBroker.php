@@ -44,18 +44,14 @@ interface OtpTokenBroker
     /**
      * Send an otp token to a user.
      *
-     * @param  array  $credentials
-     * @param  \Closure|null  $callback
-     * @return string
+     * @param array<string, string> $credentials
      */
-    public function sendOtpToken(array $credentials, Closure $callback);
+    public function sendOtpToken(array $credentials, Closure $callback): string;
 
     /**
      * Perform a certain action on token.
      *
-     * @param  array  $credentials
-     * @param  \Closure  $callback
-     * @return mixed
+     * @param array<string, string> $credentials
      */
-    public function performAction(array $credentials, Closure $callback);
+    public function performAction(array $credentials, Closure $callback): string;
 }

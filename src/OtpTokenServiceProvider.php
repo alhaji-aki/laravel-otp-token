@@ -2,11 +2,12 @@
 
 namespace AlhajiAki\OtpToken;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class OtpTokenServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->publishes([
             __DIR__ . '/../config/otp-tokens.php' => config_path('otp-tokens.php'),
@@ -19,42 +20,30 @@ class OtpTokenServiceProvider extends ServiceProvider
         ], 'migrations');
 
         $this->publishes([
-            __DIR__ . '/../resources/lang' => $this->app->langPath('lang/en'),
+            __DIR__ . '/../lang' => $this->app->langPath('lang/en'),
         ]);
     }
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
         $this->registerOtpTokenBroker();
     }
 
-    /**
-     * Register the otp token broker instance.
-     *
-     * @return void
-     */
-    protected function registerOtpTokenBroker()
+    protected function registerOtpTokenBroker(): void
     {
-        $this->app->singleton('auth.otp_token', function ($app) {
+        $this->app->singleton('auth.otp_token', function (Application $app) {
             return new OtpTokenBrokerManager($app);
         });
 
-        $this->app->bind('auth.otp_token.broker', function ($app) {
+        $this->app->bind('auth.otp_token.broker', function (Application $app) {
             return $app->make('auth.otp_token')->broker();
         });
     }
 
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function provides()
+    public function provides(): array
     {
         return ['auth.otp_token', 'auth.otp_token.broker'];
     }
