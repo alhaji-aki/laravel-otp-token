@@ -8,10 +8,8 @@ class CreateOtpTokensTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('otp_tokens', function (Blueprint $table) {
             $table->string('column')->index();
@@ -23,10 +21,8 @@ class CreateOtpTokensTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('otp_tokens');
     }

@@ -2,11 +2,15 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 
 parameters:
-    level: 8
+    level: 9
 
     paths:
         - src
         - config
+        - database
+
+    ignoreErrors:
+        - "#Cannot access offset '[a-zA-Z]+' on Illuminate\\\\Contracts\\\\Foundation\\\\Application.#"
 
     tmpDir: build/phpstan
 
