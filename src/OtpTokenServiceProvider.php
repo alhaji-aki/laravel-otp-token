@@ -12,22 +12,22 @@ class OtpTokenServiceProvider extends ServiceProvider
     {
         AboutCommand::add('Laravel Otp Tokens', fn () => ['Version' => '1.2']);
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/otp-tokens.php', 'otp-tokens');
+        $this->mergeConfigFrom(__DIR__.'/../config/otp-tokens.php', 'otp-tokens');
 
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'otp-tokens');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'otp-tokens');
 
         $this->publishes([
-            __DIR__ . '/../config/otp-tokens.php' => config_path('otp-tokens.php'),
+            __DIR__.'/../config/otp-tokens.php' => config_path('otp-tokens.php'),
         ], 'otp-tokens-config');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations' => database_path('migrations'),
+            __DIR__.'/../database/migrations' => database_path('migrations'),
         ], 'otp-tokens-migrations');
 
         $this->publishes([
-            __DIR__ . '/../lang/' => $this->app->langPath('vendor/otp-tokens'),
+            __DIR__.'/../lang/' => $this->app->langPath('vendor/otp-tokens'),
         ]);
     }
 
