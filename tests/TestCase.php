@@ -19,18 +19,17 @@ class TestCase extends BaseTestCase
 
     protected function loadEnvironmentVariables()
     {
-        if (! file_exists(__DIR__ . '/../.env')) {
+        if (! file_exists(__DIR__.'/../.env')) {
             return;
         }
 
-        $dotEnv = Dotenv::createImmutable(__DIR__ . '/..');
+        $dotEnv = Dotenv::createImmutable(__DIR__.'/..');
 
         $dotEnv->load();
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
-     *
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -60,6 +59,6 @@ class TestCase extends BaseTestCase
 
     public function setUpDatabase()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 }

@@ -3,12 +3,15 @@
 namespace AlhajiAki\OtpToken;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\ServiceProvider;
 
 class OtpTokenServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        AboutCommand::add('Laravel Otp Tokens', fn () => ['Version' => '1.2']);
+
         $this->mergeConfigFrom(__DIR__ . '/../config/otp-tokens.php', 'otp-tokens');
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
@@ -24,8 +27,8 @@ class OtpTokenServiceProvider extends ServiceProvider
         ], 'otp-tokens-migrations');
 
         $this->publishes([
-            __DIR__ . '/../lang/' => $this->app->langPath('en'),
-        ], 'otp-tokens-lang');
+            __DIR__ . '/../lang/' => $this->app->langPath('vendor/otp-tokens'),
+        ]);
     }
 
     public function register(): void
