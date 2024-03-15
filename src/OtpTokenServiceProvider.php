@@ -3,29 +3,32 @@
 namespace AlhajiAki\OtpToken;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\ServiceProvider;
 
 class OtpTokenServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/otp-tokens.php', 'otp-tokens');
+        AboutCommand::add('Laravel Otp Tokens', fn () => ['Version' => '1.2']);
 
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->mergeConfigFrom(__DIR__.'/../config/otp-tokens.php', 'otp-tokens');
 
-        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'otp-tokens');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'otp-tokens');
 
         $this->publishes([
-            __DIR__ . '/../config/otp-tokens.php' => config_path('otp-tokens.php'),
+            __DIR__.'/../config/otp-tokens.php' => config_path('otp-tokens.php'),
         ], 'otp-tokens-config');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations' => database_path('migrations'),
+            __DIR__.'/../database/migrations' => database_path('migrations'),
         ], 'otp-tokens-migrations');
 
         $this->publishes([
-            __DIR__ . '/../lang/' => $this->app->langPath('en'),
-        ], 'otp-tokens-lang');
+            __DIR__.'/../lang/' => $this->app->langPath('vendor/otp-tokens'),
+        ]);
     }
 
     public function register(): void

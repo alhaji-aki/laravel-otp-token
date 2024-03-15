@@ -26,7 +26,7 @@ class OtpTokenBrokerManager
     /**
      * Attempt to get the broker from the local cache.
      */
-    public function broker(string $name = null): OtpTokenBroker
+    public function broker(?string $name = null): OtpTokenBroker
     {
         $name = $name ?: $this->getDefaultDriver();
 

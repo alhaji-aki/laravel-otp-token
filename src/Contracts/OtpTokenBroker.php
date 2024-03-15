@@ -34,14 +34,14 @@ interface OtpTokenBroker
     /**
      * Send an otp token to a user.
      *
-     * @param array<string, string> $credentials
+     * @param  array<string, string>  $credentials
      */
     public function sendOtpToken(array $credentials, Closure $callback): string;
 
     /**
      * Perform a certain action on token.
      *
-     * @param array<string, string> $credentials
+     * @param  array<string, string>  $credentials
      */
     public function performAction(array $credentials, Closure $callback): string;
 }
