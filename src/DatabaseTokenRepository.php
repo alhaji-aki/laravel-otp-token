@@ -62,7 +62,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
             'column' => $column,
             'token' => $this->hasher->make($token),
             'action' => $action,
-            'created_at' => new Carbon(),
+            'created_at' => new Carbon,
         ];
     }
 
