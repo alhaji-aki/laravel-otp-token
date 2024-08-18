@@ -20,8 +20,7 @@ class OtpTokenBrokerManager
      */
     public function __construct(
         protected Application $app
-    ) {
-    }
+    ) {}
 
     /**
      * Attempt to get the broker from the local cache.

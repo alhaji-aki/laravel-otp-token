@@ -17,8 +17,7 @@ class OtpTokenBroker implements OtpTokenBrokerContract
     public function __construct(
         protected TokenRepositoryInterface $tokens,
         protected UserProvider $users
-    ) {
-    }
+    ) {}
 
     /**
      * Send an otp token to a user.
