@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-otp-token` will be documented in this file.
 
+## 1.3.1 - 2025-04-20
+
+**Full Changelog**: https://github.com/alhaji-aki/laravel-otp-token/compare/1.3.0...1.3.1
+
 ## Laravel 12 Support - 2025-04-20
 
 ### What's Changed
