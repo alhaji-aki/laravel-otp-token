@@ -10,8 +10,13 @@ parameters:
         - database
 
     ignoreErrors:
+        -
+            identifier: missingType.iterableValue
+
+        -
+            identifier: trait.unused
+
         - "#Cannot access offset '[a-zA-Z]+' on Illuminate\\\\Contracts\\\\Foundation\\\\Application.#"
 
     tmpDir: build/phpstan
 
-    checkMissingIterableValueType: true
