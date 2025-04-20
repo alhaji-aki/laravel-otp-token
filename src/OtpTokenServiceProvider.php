@@ -10,7 +10,7 @@ class OtpTokenServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        AboutCommand::add('Laravel Otp Tokens', fn () => ['Version' => '1.2']);
+        AboutCommand::add('Laravel Otp Tokens', fn () => ['Version' => '1.3']);
 
         $this->mergeConfigFrom(__DIR__.'/../config/otp-tokens.php', 'otp-tokens');
 
@@ -27,7 +27,7 @@ class OtpTokenServiceProvider extends ServiceProvider
         ], 'otp-tokens-migrations');
 
         $this->publishes([
-            __DIR__.'/../lang/' => $this->app->langPath('vendor/otp-tokens'),
+            __DIR__.'/../lang' => $this->app->langPath('vendor/otp-tokens'),
         ]);
     }
 
