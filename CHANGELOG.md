@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-otp-token` will be documented in this file.
 
+## Laravel 12 Support - 2025-04-20
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.1.0 by @dependabot in https://github.com/alhaji-aki/laravel-otp-token/pull/15
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/alhaji-aki/laravel-otp-token/pull/16
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/alhaji-aki/laravel-otp-token/pull/17
+* Added Laravel 12 and PHP8.4 Support by @alhaji-aki in https://github.com/alhaji-aki/laravel-otp-token/pull/18
+
+**Full Changelog**: https://github.com/alhaji-aki/laravel-otp-token/compare/1.2.0...1.3.0
+
 ## Laravel 11 Support - 2024-03-16
 
 ### What's Changed
