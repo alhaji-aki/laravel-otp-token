@@ -4,6 +4,7 @@ namespace AlhajiAki\OtpToken\Tests;
 
 use AlhajiAki\OtpToken\OtpTokenServiceProvider;
 use Dotenv\Dotenv;
+use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -29,7 +30,7 @@ class TestCase extends BaseTestCase
     }
 
     /**
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -42,7 +43,7 @@ class TestCase extends BaseTestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)
