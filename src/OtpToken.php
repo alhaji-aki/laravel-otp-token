@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool tokenExists(\AlhajiAki\OtpToken\Contracts\CanSendOtpToken $user, $token, $action, $field)
  * @method static \AlhajiAki\OtpToken\TokenRepositoryInterface getRepository()
  *
- * @see \AlhajiAki\OtpToken\Contracts\OtpTokenBroker
+ * @see OtpTokenBroker
  */
 class OtpToken extends Facade
 {
