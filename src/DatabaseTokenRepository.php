@@ -5,6 +5,7 @@ namespace AlhajiAki\OtpToken;
 use AlhajiAki\OtpToken\Contracts\CanSendOtpToken as CanSendOtpTokenContract;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Database\ConnectionInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 
@@ -153,7 +154,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model|object|static|null
+     * @return Model|object|static|null
      */
     protected function getRecord(CanSendOtpTokenContract $user, string $action, string $field)
     {
