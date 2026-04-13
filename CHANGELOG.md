@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-otp-token` will be documented in this file.
 
+## 1.4.0 - 2026-04-13
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/alhaji-aki/laravel-otp-token/pull/19
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/alhaji-aki/laravel-otp-token/pull/24
+* Bump stefanzweifel/git-auto-commit-action from 5 to 7 by @dependabot[bot] in https://github.com/alhaji-aki/laravel-otp-token/pull/22
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/alhaji-aki/laravel-otp-token/pull/26
+* Bump ramsey/composer-install from 3 to 4 by @dependabot[bot] in https://github.com/alhaji-aki/laravel-otp-token/pull/25
+* Bump actions/checkout from 4 to 6 by @dependabot[bot] in https://github.com/alhaji-aki/laravel-otp-token/pull/23
+* Added support for laravel 13 and PHP 8.5 by @alhaji-aki in https://github.com/alhaji-aki/laravel-otp-token/pull/27
+
+**Full Changelog**: https://github.com/alhaji-aki/laravel-otp-token/compare/1.3.1...1.4.0
+
 ## 1.3.1 - 2025-04-20
 
 **Full Changelog**: https://github.com/alhaji-aki/laravel-otp-token/compare/1.3.0...1.3.1
