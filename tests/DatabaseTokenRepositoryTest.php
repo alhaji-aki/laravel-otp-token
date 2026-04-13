@@ -20,10 +20,10 @@ afterEach(function () {
     Carbon::setTestNow(null);
 });
 
-function getRepo($test): DatabaseTokenRepository
+function getRepo(): DatabaseTokenRepository
 {
-    $connection = $test->app->instance(Connection::class, m::mock(Connection::class));
-    $hasher = $test->app->instance(Hasher::class, m::mock(Hasher::class));
+    $connection = app()->instance(Connection::class, m::mock(Connection::class));
+    $hasher = app()->instance(Hasher::class, m::mock(Hasher::class));
 
     return new DatabaseTokenRepository(
         $connection,
@@ -34,7 +34,7 @@ function getRepo($test): DatabaseTokenRepository
 }
 
 it('create inserts new record into table', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
 
     $repo->getHasher()
         ->shouldReceive('make')
@@ -62,7 +62,7 @@ it('create inserts new record into table', function () {
 });
 
 it('exist returns false if no row found for user', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getConnection()
         ->shouldReceive('table')
         ->once()->with('table')
@@ -79,7 +79,7 @@ it('exist returns false if no row found for user', function () {
 });
 
 it('exist returns false if record is expired', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getConnection()
         ->shouldReceive('table')
         ->once()
@@ -99,7 +99,7 @@ it('exist returns false if record is expired', function () {
 });
 
 it('exist returns true if valid record exists', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getHasher()
         ->shouldReceive('check')
         ->once()
@@ -125,7 +125,7 @@ it('exist returns true if valid record exists', function () {
 });
 
 it('exist returns false if invalid token', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getHasher()
         ->shouldReceive('check')
         ->once()
@@ -151,7 +151,7 @@ it('exist returns false if invalid token', function () {
 });
 
 it('exist returns false if valid token but wrong action', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
 
     $repo->getConnection()
         ->shouldReceive('table')
@@ -171,7 +171,7 @@ it('exist returns false if valid token but wrong action', function () {
 });
 
 it('recently created returns false if no row found for user', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getConnection()
         ->shouldReceive('table')
         ->once()
@@ -189,7 +189,7 @@ it('recently created returns false if no row found for user', function () {
 });
 
 it('recently created returns false if action is wrong', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getConnection()
         ->shouldReceive('table')
         ->once()
@@ -207,7 +207,7 @@ it('recently created returns false if action is wrong', function () {
 });
 
 it('recently created returns true if record is recently created', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getConnection()
         ->shouldReceive('table')
         ->once()
@@ -229,7 +229,7 @@ it('recently created returns true if record is recently created', function () {
 });
 
 it('recently created returns false if valid record exists and date not recent', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getConnection()
         ->shouldReceive('table')
         ->once()
@@ -249,7 +249,7 @@ it('recently created returns false if valid record exists and date not recent', 
 });
 
 it('delete method deletes by token', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getConnection()
         ->shouldReceive('table')
         ->once()
@@ -267,7 +267,7 @@ it('delete method deletes by token', function () {
 });
 
 it('delete expired method deletes expired tokens', function () {
-    $repo = getRepo($this);
+    $repo = getRepo();
     $repo->getConnection()
         ->shouldReceive('table')
         ->once()

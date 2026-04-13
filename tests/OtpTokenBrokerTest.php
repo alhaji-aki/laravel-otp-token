@@ -7,7 +7,6 @@ use AlhajiAki\OtpToken\TokenRepositoryInterface;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Support\Arr;
 use Mockery as m;
-use UnexpectedValueException;
 
 afterEach(function () {
     m::close();
